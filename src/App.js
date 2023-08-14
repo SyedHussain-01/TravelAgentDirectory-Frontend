@@ -1,76 +1,43 @@
 import logo from "./logo.svg";
 import "./App.css";
-import axios from 'axios'
+import axios from "axios";
+import { Post } from "./common/utilities/services/axiosbase";
+import routes from "./common/utilities/apiRoutes/routes";
+import useAutoRefresh from "./common/utilities/customHooks/useAutoRefresh";
+import { AuthService } from "./common/utilities/services/request";
 function App() {
-  const refreshtoken = async () => {
-    const data = {
-      refresh_token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODgxMjM3NDMsImV4cCI6MTY4ODcyODU0M30.ykR8xB_wQM1zabkGCCv_CjIdfgWjbqOTWRCNqiraZ60",
-    };
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/refresh-token",
-        { refresh_token: data.refresh_token },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      console.log("Response data:", response);
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  };
 
+  useAutoRefresh();
+  
   const signup = async () => {
-    const date = new Date()
-    date.setDate(27)
-    date.setMonth(5)
-    date.setFullYear(2001)
+    const date = new Date();
+    date.setDate(27);
+    date.setMonth(5);
+    date.setFullYear(2001);
     const data = {
-      name: "Person5",
-      email: "person5@gmail.com",
-      pass: "personal5",
+      name: "Person2",
+      email: "person2@gmail.com",
+      pass: "person2",
       phone: 93928573948,
       city: "Karachi",
       date_of_birth: date,
-      user_type:0
+      user_type: 1,
     };
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/sign-up",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      console.log("Response data:", response);
-    } catch (error) {
-      console.log("Error:", error);
-    }
+    const result = await Post(routes.signUp, data);
+    console.log(result)
   };
 
   const signin = async () => {
-    const data = {
-      email: "person5@gmail.com",
-      pass: "personal5",
-    };
     try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/sign-in",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      console.log("Response data:", response);
+      const data = {
+        email: "person2@gmail.com",
+        pass: "person2",
+      };
+      const { authorization, refresh_token } = await AuthService.signIn(data.email, data.pass)
+      localStorage.setItem('access_token', authorization);
+      localStorage.setItem('refresh_token', refresh_token);
     } catch (error) {
-      console.log("Error:", error);
+      console.log(error)
     }
   };
 
