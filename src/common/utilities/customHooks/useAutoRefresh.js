@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { AuthService } from '../services/request';
+import { Service } from '../services/request';
 
 function useAutoRefresh() {
   useEffect(() => {
@@ -9,7 +9,7 @@ function useAutoRefresh() {
       const token = refreshToken.split(' ')[1]
       const refreshInterval = setInterval(async () => {
         try {
-          const { authorization } = await AuthService.refreshAccessToken(token);
+          const { authorization } = await Service.refreshAccessToken(token);
           localStorage.setItem('access_token', authorization);
         } catch (error) {
           console.error(error);
