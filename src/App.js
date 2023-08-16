@@ -1,6 +1,11 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
-import axios from 'axios'
+import axios from "axios";
+import Login from "./Login";
+import Signin from "./Signin";
+
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const refreshtoken = async () => {
     const data = {
@@ -24,10 +29,10 @@ function App() {
   };
 
   const signup = async () => {
-    const date = new Date()
-    date.setDate(27)
-    date.setMonth(5)
-    date.setFullYear(2001)
+    const date = new Date();
+    date.setDate(27);
+    date.setMonth(5);
+    date.setFullYear(2001);
     const data = {
       name: "Person5",
       email: "person5@gmail.com",
@@ -35,7 +40,7 @@ function App() {
       phone: 93928573948,
       city: "Karachi",
       date_of_birth: date,
-      user_type:0
+      user_type: 0,
     };
     try {
       const response = await axios.post(
@@ -75,17 +80,28 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+      <BrowserRouter>
+        <Routes>
+          
+            
+            <Route exact path="/SIgnin" element={<Signin/>}></Route>
+            <Route path="/Login" element={<Login />}></Route>
+          
+        </Routes>
+      </BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={signup}>sign up</button>
-        <button onClick={signin}>sign in</button>
-        <button onClick={refreshtoken}>refresh</button>
-      </header>
-    </div>
+        </p> */}
+          {/* <button onClick={signup}>sign up</button>
+          <button onClick={signin}>sign in</button>
+          <button onClick={refreshtoken}>refresh</button> */}
+        </header>
+      </div>
+    </>
   );
 }
 
