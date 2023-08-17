@@ -7,7 +7,7 @@ import {
   Recomend,
   Services,
   Testimonials,
-} from "./../components/landing_page";
+} from "../components/landing_page";
 import ScrollReveal from "scrollreveal";
 
 const Home = () => {

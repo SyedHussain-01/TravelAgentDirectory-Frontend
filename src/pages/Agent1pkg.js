@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import airplane from "./airplane.jpg";
+import airplane from "./../airplane.jpg";
 export default function Agent1pkg() {
   return (
     <>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { signup } from "./../functions/authorization";
+import { signup } from "../functions/authorization";
 
 function Signin() {
   const [state, setState] = useState({

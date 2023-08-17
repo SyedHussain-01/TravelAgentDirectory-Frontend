@@ -5,10 +5,12 @@ import React from "react";
 import Login from "./pages/Login";
 import Signin from "./pages/Signin";
 import Home from "./pages/Home";
+import User from "./pages/User";
+import Agent1 from "./pages/Agent1";
+import Agent1pkg from "./pages/Agent1pkg";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-
   const tokenExists = hasAuthToken();
   useAutoRefresh();
 
@@ -23,7 +25,15 @@ function App() {
               <Route path="/signup" element={<Signin />}></Route>
             </>
           ) : (
-            <Route exact path="/" element={<Home />}></Route>
+            <>
+              <Route exact path="/" element={<Home />}></Route>
+              <Route path="/User" element={<User />}></Route>
+              <Route path="/User/:id" element={<Agent1 />}></Route>
+              <Route
+                path="/User/Agent1/Agent1pkg"
+                element={<Agent1pkg />}
+              ></Route>
+            </>
           )}
         </Routes>
       </BrowserRouter>

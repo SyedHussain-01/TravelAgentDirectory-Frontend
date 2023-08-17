@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link, Navigate, } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { signin } from "./../functions/authorization";
+import { signin } from "../functions/authorization";
 
 export default function Login() {
   const [state, setState] = useState({
