@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link, Navigate, } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { signin } from "./functions/authorization";
+import { signin } from "./../functions/authorization";
 
 export default function Login() {
   const [state, setState] = useState({
@@ -10,6 +10,7 @@ export default function Login() {
     pass: "",
   });
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const signIn = async (event) => {
     event.preventDefault();
@@ -20,7 +21,10 @@ export default function Login() {
       };
       const result = await signin(data);
       if (result) {
-        window.location.reload();
+        setSuccess(true)
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
       }
     } catch (error) {
       console.log("error=> ", error);
@@ -36,6 +40,7 @@ export default function Login() {
   return (
     <>
       {error && <p>Failed to Sign Up!!! Please Try Again</p>}
+      {success && <Navigate to="/" replace={true} />}
       <div className="container mt-5 pt-5" style={{ marginLeft: "20%" }}>
         <div className="row">
           <div className="col-12 col-sm8 col-md-6 m-auto">

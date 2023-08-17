@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { signup } from "./functions/authorization";
+import { signup } from "./../functions/authorization";
 
 function Signin() {
   const [state, setState] = useState({
@@ -32,6 +32,7 @@ function Signin() {
       if (result) {
         setSuccess(true);
       }
+      console.log(data)
     } catch (error) {
       console.log("error=> ", error);
       setError(true);
@@ -77,6 +78,15 @@ function Signin() {
                       />
                     );
                   })}
+                  <select defaultValue={0} onChange={(event)=>{
+                    setState({
+                      ...state,
+                      user_type: Number(event.target.value),
+                    });
+                  }} >
+                    <option value={0}>Agent</option>
+                    <option value={1}>Traveller</option>
+                  </select>
                   <div className="text-center">
                     <button type="submit" className="btn btn-primary">
                       Sign Up
