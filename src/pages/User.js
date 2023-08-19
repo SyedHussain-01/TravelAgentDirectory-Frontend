@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import img from "./../mbq.jpg";
 import { Link } from "react-router-dom";
+import { getAgencies } from "../functions/travelAgents";
+
 export default function User() {
+  const [data, setData] = useState(null);
+
+  const getData = async () => {
+    try {
+      const result = await getAgencies();
+      setData(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
       <>
@@ -38,10 +55,7 @@ export default function User() {
                 aria-label="Slide 3"
               ></button>
             </div>
-            <div
-              className="carousel-inner"
-              style={{ height: "500px", marginTop: "10px" }}
-            >
+            <div className="carousel-inner" style={{ marginTop: "10px" }}>
               <div className="carousel-item active">
                 <img src={img} className="d-block w-100" alt="..." />
               </div>
@@ -83,111 +97,33 @@ export default function User() {
             <span className="navbar-brand mb-0 h1">Travel Agents</span>
           </div>
         </nav>
-
         <div>
           <div className="container text-center">
-            <div className="row align-items-center">
-              <div className="col">
-                <div
-                  className="card"
-                  style={{ width: "18rem", marginTop: "20px" }}
-                >
-                  <img src={img} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">Agent 1</h5>
-                    <p className="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <Link to="/User/Agent1">
-                      {" "}
-                      <button className="btn btn-primary">View Packages</button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div
-                  className="card"
-                  style={{ width: "18rem", marginTop: "20px" }}
-                >
-                  <img src={img} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">Agent 2</h5>
-                    <p className="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <Link to="/User/Agent2">
-                      {" "}
-                      <button className="btn btn-primary">View Packages</button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div className="col">
-                  <div
-                    className="card"
-                    style={{ width: "18rem", marginTop: "20px" }}
-                  >
-                    <img src={img} className="card-img-top" alt="..." />
-                    <div className="card-body">
-                      <h5 className="card-title">Agent 3</h5>
-                      <p className="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                      <Link to="/User/Agent3">
-                      {" "}
-                      <button className="btn btn-primary">View Packages</button>
-                    </Link>
+            <div className="row">
+              {data?.data && data.data.map((item) => {
+                return (
+                  <div className="col-sm-4 d-flex justify-content-center align-items-center">
+                    <div
+                      className="card"
+                      style={{ width: "18rem", marginTop: "20px" }}
+                    >
+                      <img src={img} className="card-img-top" alt="..." />
+                      <div className="card-body">
+                        <h5 className="card-title">{item.agency_name}</h5>
+                        <p className="card-text">
+                          <div>Owner: {item.name}</div>
+                          <div>Contact: {item.phone}</div>
+                        </p>
+                        <Link to={`/User/${item._id}`}>
+                          <button className="btn btn-primary">
+                            View Packages
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col">
-                <div
-                  className="card"
-                  style={{ width: "18rem", marginTop: "20px" }}
-                >
-                  <img src={img} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">Agent 4</h5>
-                    <p className="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <Link to="/User/Agent4">
-                      {" "}
-                      <button className="btn btn-primary">View Packages</button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div className="col">
-                  <div
-                    className="card"
-                    style={{ width: "18rem", marginTop: "20px" }}
-                  >
-                    <img src={img} className="card-img-top" alt="..." />
-                    <div className="card-body">
-                      <h5 className="card-title">Agent 5</h5>
-                      <p className="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                      <Link to="/User/Agent5">
-                      {" "}
-                      <button className="btn btn-primary">View Packages</button>
-                    </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>

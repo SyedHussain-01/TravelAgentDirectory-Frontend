@@ -9,6 +9,7 @@ import User from "./pages/User";
 import Agent1 from "./pages/Agent1";
 import Agent1pkg from "./pages/Agent1pkg";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Loading } from "./pages/Loading";
 
 function App() {
   const tokenExists = hasAuthToken();
@@ -26,8 +27,7 @@ function App() {
             </>
           ) : (
             <>
-              <Route exact path="/" element={<Home />}></Route>
-              <Route path="/User" element={<User />}></Route>
+              <Route path="/" element={<User />}></Route>
               <Route path="/User/:id" element={<Agent1 />}></Route>
               <Route
                 path="/User/Agent1/Agent1pkg"
@@ -35,6 +35,7 @@ function App() {
               ></Route>
             </>
           )}
+          <Route exact path="/loading" element={<Loading/>}></Route>
         </Routes>
       </BrowserRouter>
     </>

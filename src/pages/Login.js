@@ -24,7 +24,7 @@ export default function Login() {
         setSuccess(true)
         setTimeout(() => {
           window.location.reload();
-        }, 5000);
+        }, 1000);
       }
     } catch (error) {
       console.log("error=> ", error);
@@ -40,7 +40,7 @@ export default function Login() {
   return (
     <>
       {error && <p>Failed to Sign Up!!! Please Try Again</p>}
-      {success && <Navigate to="/" replace={true} />}
+      {success && <Navigate to="/loading" replace={true} />}
       <div className="container mt-5 pt-5" style={{ marginLeft: "20%" }}>
         <div className="row">
           <div className="col-12 col-sm8 col-md-6 m-auto">

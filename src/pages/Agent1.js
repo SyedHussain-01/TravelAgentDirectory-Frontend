@@ -1,8 +1,23 @@
-
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getPackage } from "../functions/packages";
 
 export default function Agent1() {
+  const [data, setData] = useState(null);
+  const { id } = useParams();
+
+  const getData = async () => {
+    try {
+      const result = await getPackage(id);
+      setData(result?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <div>
@@ -16,98 +31,40 @@ export default function Agent1() {
           </div>
         </nav>
       </div>
-
-      <Link to="/User/Agent1/Agent1pkg">
-        {" "}
-        <div>
-          <div
-            className="card"
-            style={{
-              width: "70%",
-              marginLeft: "15%",
-              marginTop: "30px",
-            }}
-          >
-            <div className="card-body">
-              <h5 className="card-title">Package 1</h5>
-              <h6 className="card-subtitle mb-2 text-body-secondary">
-                Card subtitle
-              </h6>
-              <p className="card-text">
-                Some quick example text to build on the ....
-              </p>
-            </div>
-          </div>
-        </div>
-      </Link>
-
-      <div>
-      <div>
-          <div
-            className="card"
-            style={{
-              width: "70%",
-              marginLeft: "15%",
-              marginTop: "30px",
-            }}
-          >
-            <div className="card-body">
-              <h5 className="card-title">Package 1</h5>
-              <h6 className="card-subtitle mb-2 text-body-secondary">
-                Card subtitle
-              </h6>
-              <p className="card-text">
-                Some quick example text to build on the ....
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-      <div>
-          <div
-            className="card"
-            style={{
-              width: "70%",
-              marginLeft: "15%",
-              marginTop: "30px",
-            }}
-          >
-            <div className="card-body">
-              <h5 className="card-title">Package 1</h5>
-              <h6 className="card-subtitle mb-2 text-body-secondary">
-                Card subtitle
-              </h6>
-              <p className="card-text">
-                Some quick example text to build on the ....
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-      <div>
-          <div
-            className="card"
-            style={{
-              width: "70%",
-              marginLeft: "15%",
-              marginTop: "30px",
-            }}
-          >
-            <div className="card-body">
-              <h5 className="card-title">Package 1</h5>
-              <h6 className="card-subtitle mb-2 text-body-secondary">
-                Card subtitle
-              </h6>
-              <p className="card-text">
-                Some quick example text to build on the ....
-              </p>
-            </div>
-          </div>
-        </div>      </div>
+      {data &&
+        data.map((item) => {
+          return (
+            <Link to="/User/Agent1/Agent1pkg">
+              <div>
+                <div
+                  className="card"
+                  style={{
+                    width: "70%",
+                    marginLeft: "15%",
+                    marginTop: "30px",
+                  }}
+                >
+                  <div className="card-body">
+                    <h5 className="card-title">{item.packageName}</h5>
+                    <h6 className="card-subtitle mb-2 text-body-secondary">
+                      {item.destinations.map((destination) => {
+                        return (
+                          <>
+                            <span>{destination}</span>
+                            <span>{' -> '}</span>
+                          </>
+                        );
+                      })}
+                    </h6>
+                    <p className="card-text">
+                      {item.description.slice(0,200)} ....
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
     </>
   );
 }

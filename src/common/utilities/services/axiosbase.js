@@ -1,18 +1,49 @@
-import axios from 'axios'
-
-const options = {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  }
+import axios from "axios";
+import getUserData from "./../customHooks/getUserData";
 
 export const Post = async (route, data) => {
-  console.log(data)
+  const user_data = getUserData();
   try {
+    let query = ``
+    if(user_data.id && user_data.name && user_data.type){
+      query = `?id=${user_data.id}&name=${user_data.name}&type=${user_data.type}`
+    }
     const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}` + `/${route}`,
+      `${process.env.REACT_APP_BASE_URL}` +
+        `/${route}` +
+        query,
       data,
-      options
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          ...(user_data.token ? {"Authorization": user_data.token} : {})
+        },    
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
+export const Get = async (route, data={}) => {
+  const user_data = getUserData();
+  try {
+    let query = ``
+    if(user_data.id && user_data.name && user_data.type){
+      query = `?id=${user_data.id}&name=${user_data.name}&type=${user_data.type}`
+    }
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}` +
+        `/${route}` +
+        query,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          ...(user_data.token ? {"Authorization": user_data.token} : {})
+        },
+        params: data    
+      }
     );
     return response;
   } catch (error) {

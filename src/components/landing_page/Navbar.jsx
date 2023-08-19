@@ -9,7 +9,7 @@ export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
   return (
     <>
-      <Nav style={{ marginTop: "1em" }}>
+      <Nav style={{ marginTop: "1em", justifyContent: 'space-around' }}>
         <div className="brand">
           <div className="container">
             <img src={logo} alt="" />

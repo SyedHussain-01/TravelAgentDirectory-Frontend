@@ -14,7 +14,7 @@ function useAutoRefresh() {
         } catch (error) {
           console.error(error);
         }
-      }, 5 * 60 * 1000); // Refresh every 5 minutes
+      }, 12 * 60 * 1000); // Refresh every 12 minutes
 
       return () => {
         clearInterval(refreshInterval);

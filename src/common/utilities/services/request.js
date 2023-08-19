@@ -8,7 +8,7 @@ export const Service = {
       pass,
     };
     const response = await Post(routes.signIn, data);
-    return response.headers;
+    return response;
   },
   refreshAccessToken: async (refreshToken) => {
     const data = {
