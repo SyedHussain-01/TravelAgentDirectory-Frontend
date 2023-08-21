@@ -33,7 +33,7 @@ function Signin() {
       if (result) {
         setSuccess(true);
       }
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.log("error=> ", error);
       setError(true);
@@ -50,75 +50,104 @@ function Signin() {
   ];
 
   return (
-    <> <div className="row align-items-center" style={{         
-      backgroundImage: `url(${bg1})`,
-      backgroundSize: "cover",
-      marginLeft: "0%",
-      padding: "0%",
-      width: "100%",
-      backgroundPosition: "cover",
-      height: "50vw",
-     }}><div className="col">
-      {error && <p>Failed to Sign Up!!! Please Try Again</p>}
-      {success && <Navigate to="/" replace={true} />}
-     
-            <div className="card border-0 shadow" style={{ width: "300px", 
-                  width: "400px",
-                  backdropFilter:"blur(1px)",
-                  backgroundColor: "rgba(0,0,0,0.5",
-                  
-                  marginLeft:"35%",
-                  borderRadius:"30px",
-                 
-                }} >
-              <div className="card-body"  style={{
-                    backgroundColor: "rgba(0,0,0,0.5)",
-                    marginTop: "0%",
-                    borderRadius:"30px",
-                    
-                  }}
-                >
-                <div className="logo" style={{ marginLeft: "40%" }}>
-                  <AccountCircleIcon sx={{ fontSize: 60 ,color: "rgba(202,202,202)"}} />
-                </div>
-                <form onSubmit={signUp}>
-                  {fields.map((e) => {
-                    return (
-                      <input
-                        type={e.type}
-                        className="form-control my-4 py-2"
-                        id=""
-                        name={e.name}
-                        placeholder={e.placeholder}
-                        onChange={(event) => {
-                          setState({
-                            ...state,
-                            [event.target.name]: event.target.value,
-                          });
-                        }}
-                      />
-                    );
-                  })}
-                  <select defaultValue={0} onChange={(event)=>{
+    <>
+      {" "}
+      <div
+        className="row align-items-center"
+        style={{
+          backgroundImage: `url(${bg1})`,
+          backgroundSize: "cover",
+          marginLeft: "0%",
+          padding: "0%",
+          width: "100%",
+          backgroundPosition: "cover",
+          height: "50vw",
+        }}
+      >
+        <div className="col">
+          {error && <p>Failed to Sign Up!!! Please Try Again</p>}
+          {success && <Navigate to="/" replace={true} />}
+
+          <div
+            className="card border-0 shadow"
+            style={{
+              width: "300px",
+              width: "400px",
+              backdropFilter: "blur(1px)",
+              backgroundColor: "rgba(0,0,0,0.5",
+
+              marginLeft: "35%",
+              borderRadius: "30px",
+            }}
+          >
+            <div
+              className="card-body"
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                marginTop: "0%",
+                borderRadius: "30px",
+              }}
+            >
+              <div className="logo" style={{ marginLeft: "40%" }}>
+                <AccountCircleIcon
+                  sx={{ fontSize: 60, color: "rgba(202,202,202)" }}
+                />
+              </div>
+              <form onSubmit={signUp}>
+                {fields.map((e) => {
+                  return (
+                    <input
+                      type={e.type}
+                      className="form-control my-4 py-2"
+                      id=""
+                      name={e.name}
+                      placeholder={e.placeholder}
+                      onChange={(event) => {
+                        setState({
+                          ...state,
+                          [event.target.name]: event.target.value,
+                        });
+                      }}
+                    />
+                  );
+                })}
+                <select
+                  defaultValue={0}
+                  onChange={(event) => {
                     setState({
                       ...state,
                       user_type: Number(event.target.value),
                     });
-                  }} >
-                    <option value={0}>Agent</option>
-                    <option value={1}>Traveller</option>
-                  </select>
-                  <div className="text-center">
-                    <button type="submit" className="btn btn-danger">
-                      Sign Up
-                    </button>
-                  </div>
-                </form>
-              </div>
+                  }}
+                >
+                  <option value={0}>Agent</option>
+                  <option value={1}>Traveller</option>
+                </select>
+                {state.user_type == 0 ? (
+                  <input
+                    type={"text"}
+                    className="form-control my-4 py-2"
+                    id=""
+                    name={"agency_name"}
+                    placeholder={"Agency Name"}
+                    onChange={(event) => {
+                      setState({
+                        ...state,
+                        [event.target.name]: event.target.value,
+                      });
+                    }}
+                  />
+                ) : null}
+                <div className="text-center">
+                  <button type="submit" className="btn btn-danger">
+                    Sign Up
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-    
+      </div>
     </>
   );
 }

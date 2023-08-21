@@ -39,7 +39,7 @@ export const Dashboard = () => {
         <Sidebar isSidebar={isSidebar} />
         <main className="content">
           <Topbar setIsSidebar={setIsSidebar} />
-          {tab == 1 ? <AddPackage /> : tab == 2 ? <Profile /> : tab == 3 ? <Packages/> : null}
+          {tab == 1 ? <AddPackage /> : tab == 2 ? <Profile /> : tab == 3 ? <Packages/> : <Packages/>}
         </main>
       </div>
     </>
