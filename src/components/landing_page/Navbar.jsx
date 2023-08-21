@@ -4,12 +4,15 @@ import logo from "../assets/logo.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
+import hasAuthToken from "../../common/utilities/customHooks/hasAuthToken";
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
+  const token = hasAuthToken();
   return (
     <>
-      <Nav style={{ marginTop: "1em", justifyContent: 'space-around' }}>
+      <Nav style={{ marginTop: "1em", justifyContent: "space-around" }}>
         <div className="brand">
           <div className="container">
             <img src={logo} alt="" />
@@ -38,9 +41,13 @@ export default function Navbar() {
             <a href="#testimonials">Testimonials</a>
           </li>
         </ul>
-        <Link to={'/login'} >
-          <button>LOGIN</button>
-        </Link>
+        {token ? (
+          <Avatar src="" />
+        ) : (
+          <Link to={"/login"}>
+            <button>LOGIN</button>
+          </Link>
+        )}
       </Nav>
       <ResponsiveNav state={navbarState}>
         <ul>

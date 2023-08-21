@@ -10,12 +10,14 @@ const routes = {
     get_single_package: 'api/v1/package/get-single-package',
     get_package: 'api/v1/package/get-package',
     edit_agency: 'api/v1/agents/edit-agency',
+    get_single_agency: 'api/v1/agents/get-single-Agent',
     delete_agency: 'api/v1/agents/delete-agency',
     get_agencies: 'api/v1/agents/get-agencies',
     edit_user: 'api/v1/users/edit-user',
     proceed_package: 'api/v1/users/proceed-package',
     delete_user: 'api/v1/users/delete-user',
-    get_users: 'api/v1/users/get-users' 
+    get_users: 'api/v1/users/get-users',
+    get_single_user: 'api/v1/users/get-single-User', 
 }
 
 export default routes;
