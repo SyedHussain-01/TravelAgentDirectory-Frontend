@@ -1,0 +1,23 @@
+
+.pkg{
+  height: "800px";
+ }
+
+.pkg:hover{
+  transform: scale(1.05);
+  transition: 0.5s;
+  box-shadow: 0.5px 0.5px 10px;
+  background-color: #9ebfdb;
+
+}
+/* .col{background-color: rgb(202, 202, 202);} */
+
+
+
+
+
+
+
+
+
+
