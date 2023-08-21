@@ -8,11 +8,23 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link, useNavigate } from "react-router-dom";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("user_type");
+    localStorage.removeItem("user_name");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("access_token");
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1000);
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -37,15 +49,11 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+        <Link onClick={logout}>
+          <IconButton>
+            <PersonOutlinedIcon />
+          </IconButton>
+        </Link>
       </Box>
     </Box>
   );

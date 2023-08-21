@@ -1,5 +1,5 @@
 import routes from "../common/utilities/apiRoutes/routes"
-import { Get } from "../common/utilities/services/axiosbase"
+import { Get, Update } from "../common/utilities/services/axiosbase"
 
 export const getPackage = async (id) => {
     const data = {
@@ -7,6 +7,31 @@ export const getPackage = async (id) => {
     } 
     try {
         const response = await Get(routes.get_package, data)
+        return response.data;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getSinglePackage = async (id) => {
+    const data = {
+        package_id: id
+    } 
+    try {
+        const response = await Get(routes.get_single_package, data)
+        return response.data;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const proceedPackage = async (agent_id, package_id) => {
+    const data = {
+        package_id,
+        agent_id
+    } 
+    try {
+        const response = await Update(routes.proceed_package, data)
         return response.data;
     } catch (error) {
         console.log(error)

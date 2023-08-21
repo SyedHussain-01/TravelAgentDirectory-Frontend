@@ -3,13 +3,23 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
-import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
+import { Link, useNavigate } from "react-router-dom";
 import hasAuthToken from "../../common/utilities/customHooks/hasAuthToken";
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
+  const navigate = useNavigate()
   const token = hasAuthToken();
+  const logout = () => {
+    localStorage.removeItem("user_id")
+    localStorage.removeItem("user_type")
+    localStorage.removeItem("user_name")
+    localStorage.removeItem("refresh_token")
+    localStorage.removeItem("access_token")
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1000);
+  }
   return (
     <>
       <Nav style={{ marginTop: "1em", justifyContent: "space-around" }}>
@@ -42,7 +52,9 @@ export default function Navbar() {
           </li>
         </ul>
         {token ? (
-          <Avatar src="" />
+          <Link>
+            <button onClick={logout} >LOGOUT</button>
+          </Link>
         ) : (
           <Link to={"/login"}>
             <button>LOGIN</button>

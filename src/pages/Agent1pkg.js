@@ -1,11 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import airplane from "./new1.png";
+import { Link, useParams } from "react-router-dom";
+import { getSinglePackage, proceedPackage } from "../functions/packages";
+import { Button, Snackbar } from "@mui/material";
+
 export default function Agent1pkg() {
+  const [data, setData] = useState(null);
+  const { id, packageid } = useParams();
+  const [update, setUpdate] = useState(false);
+
+  const getData = async () => {
+    try {
+      const result = await getSinglePackage(packageid);
+      setData(result?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const submitPackage = async () => {
+    try {
+      const result = await proceedPackage(id, packageid);
+      if (result) {
+        setUpdate(true);
+        setTimeout(() => {
+          setUpdate(false);
+        }, 5000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (!data) {
+    return null;
+  }
+
   return (
     <>
-      {" "}
-      
       <div
         className="rectangle"
         style={{
@@ -15,10 +52,15 @@ export default function Agent1pkg() {
           backgroundColor: "whitesmoke",
           marginLeft: "5%",
           marginTop: "1px",
-          marginBottom:"20px",
+          marginBottom: "20px",
           border: "0.1px solid rgba(0,0,0,0.2)",
         }}
       >
+        <Snackbar
+          open={update}
+          autoHideDuration={100} // Time in milliseconds for how long the snackbar should be open
+          message="Package Proceeded, Enjoy your journey!!!!"
+        />
         <div className="container text-center" style={{ marginTop: "5%" }}>
           <div className="row">
             <div className="col">
@@ -65,7 +107,13 @@ export default function Agent1pkg() {
               >
                 <div
                   className="card-body"
-                  style={{ textTransform: "uppercase", fontWeight: "700" ,backgroundColor:"#000",color:"#fff",opacity:"0.5"}}
+                  style={{
+                    textTransform: "uppercase",
+                    fontWeight: "700",
+                    backgroundColor: "#000",
+                    color: "#fff",
+                    opacity: "0.5",
+                  }}
                 >
                   <h5
                     className="card-title"
@@ -74,10 +122,7 @@ export default function Agent1pkg() {
                     Description
                   </h5>
                   <p className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content. Some quick example text
-                    to build on the card title and make up the bulk of the
-                    card's content.
+                    {`${data?.description}`.slice(0, 200)}
                   </p>
                 </div>
               </div>
@@ -125,16 +170,34 @@ export default function Agent1pkg() {
                 <div class="container text-center">
                   <div className="row">
                     <div className="col">Destination: </div>
-                    <div className="col-6">karachi to lahore to islamabd</div>
+                    <div className="col-6">
+                      {data.destinations?.map((item) => {
+                        return <span>{item} - </span>;
+                      })}
+                    </div>
                     <div className="col"></div>
                   </div>
 
                   <div className="row" style={{ marginTop: "60px" }}>
-                    <div className="col">Package Name: abcdf</div>
-                    <div className="col-5">Duration: 4 hours</div>
-                    <div className="col">Fees: 100$</div>
+                    <div className="col">
+                      Package Name: {data.packageName && data.packageName}
+                    </div>
+                    <div className="col-5">
+                      Duration: {data.duration && data.duration} days
+                    </div>
+                    <div className="col">
+                      Fees: {data.tour_fee && data.tour_fee}
+                    </div>
+                    <Button
+                      type="button"
+                      color="secondary"
+                      variant="contained"
+                      onClick={submitPackage}
+                    >
+                      Proceed
+                    </Button>
                   </div>
-                </div>{" "}
+                </div>
               </p>
             </div>
           </div>

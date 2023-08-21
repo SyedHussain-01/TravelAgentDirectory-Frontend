@@ -68,7 +68,7 @@ function App() {
                   <Route path="/" element={<User />}></Route>
                   <Route path="/User/:id" element={<Agent1 />}></Route>
                   <Route
-                    path="/User/Agent1/Agent1pkg"
+                    path="/User/:id/:packageid"
                     element={<Agent1pkg />}
                   ></Route>
                 </>

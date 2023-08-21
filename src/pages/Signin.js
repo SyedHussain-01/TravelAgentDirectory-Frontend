@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { signup } from "../functions/authorization";
+import bg1 from "../bg66.jpg";
 
 function Signin() {
   const [state, setState] = useState({
@@ -49,16 +50,36 @@ function Signin() {
   ];
 
   return (
-    <>
+    <> <div className="row align-items-center" style={{         
+      backgroundImage: `url(${bg1})`,
+      backgroundSize: "cover",
+      marginLeft: "0%",
+      padding: "0%",
+      width: "100%",
+      backgroundPosition: "cover",
+      height: "50vw",
+     }}><div className="col">
       {error && <p>Failed to Sign Up!!! Please Try Again</p>}
       {success && <Navigate to="/" replace={true} />}
-      <div className="container mt-5 pt-5" style={{ marginLeft: "20%" }}>
-        <div className="row">
-          <div className="col-12 col-sm-8 col-md-6 m-auto">
-            <div className="card border-0 shadow" style={{ width: "300px" }}>
-              <div className="card-body">
+     
+            <div className="card border-0 shadow" style={{ width: "300px", 
+                  width: "400px",
+                  backdropFilter:"blur(1px)",
+                  backgroundColor: "rgba(0,0,0,0.5",
+                  
+                  marginLeft:"35%",
+                  borderRadius:"30px",
+                 
+                }} >
+              <div className="card-body"  style={{
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    marginTop: "0%",
+                    borderRadius:"30px",
+                    
+                  }}
+                >
                 <div className="logo" style={{ marginLeft: "40%" }}>
-                  <AccountCircleIcon sx={{ fontSize: 60 }} />
+                  <AccountCircleIcon sx={{ fontSize: 60 ,color: "rgba(202,202,202)"}} />
                 </div>
                 <form onSubmit={signUp}>
                   {fields.map((e) => {
@@ -88,7 +109,7 @@ function Signin() {
                     <option value={1}>Traveller</option>
                   </select>
                   <div className="text-center">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-danger">
                       Sign Up
                     </button>
                   </div>
@@ -97,7 +118,7 @@ function Signin() {
             </div>
           </div>
         </div>
-      </div>
+    
     </>
   );
 }
