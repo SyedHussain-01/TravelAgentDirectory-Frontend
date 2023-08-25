@@ -28,12 +28,14 @@ export default function Agent1pkg() {
 
   const submitPackage = async () => {
     try {
-      const result = await proceedPackage(id, packageid);
+      const user_id = localStorage.getItem("user_id")
+      const result = await proceedPackage(id, packageid, user_id);
       if (result) {
         setUpdate(true);
         setTimeout(() => {
           setUpdate(false);
-        }, 5000);
+          window.location.href = `/User/${data.agent_id}`
+        }, 2000);
       }
     } catch (error) {
       console.log(error);

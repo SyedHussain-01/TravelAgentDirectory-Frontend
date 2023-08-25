@@ -62,6 +62,14 @@ function App() {
                     path="/Dashboard/Packages"
                     element={<Dashboard />}
                   ></Route>
+                  <Route
+                    path="/Dashboard/Requests"
+                    element={<Dashboard />}
+                  ></Route>
+                  <Route
+                    path="/Dashboard/OngoingPackages"
+                    element={<Dashboard />}
+                  ></Route>
                 </>
               ) : (
                 <>

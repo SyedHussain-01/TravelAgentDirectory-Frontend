@@ -114,22 +114,7 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to="/Dashboard/Packages"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-              style={{ fontSize: '1em' }}
-            >
-              Pages
-            </Typography>
+            
             <Item
               title="Add Package"
               to="/Dashboard/Add"
@@ -147,6 +132,20 @@ const Sidebar = () => {
             <Item
               title="My Packages"
               to="/Dashboard/Packages"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Requests"
+              to="/Dashboard/Requests"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Ongoing Packages"
+              to="/Dashboard/OngoingPackages"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -13,6 +13,16 @@ export const getPackage = async (id) => {
   }
 };
 
+export const getCustomPackage = async () => {
+  
+  try {
+    const response = await Get(routes.get_custom_package);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getSinglePackage = async (id) => {
   const data = {
     package_id: id,
@@ -25,10 +35,11 @@ export const getSinglePackage = async (id) => {
   }
 };
 
-export const proceedPackage = async (agent_id, package_id) => {
+export const proceedPackage = async (agent_id, package_id, user_id) => {
   const data = {
     package_id,
     agent_id,
+    user_id
   };
   try {
     const response = await Update(routes.proceed_package, data);

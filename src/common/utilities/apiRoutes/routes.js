@@ -17,7 +17,9 @@ const routes = {
     proceed_package: 'api/v1/users/proceed-package',
     delete_user: 'api/v1/users/delete-user',
     get_users: 'api/v1/users/get-users',
-    get_single_user: 'api/v1/users/get-single-User', 
+    get_single_user: 'api/v1/users/get-single-User',
+    add_custom_package: 'api/v1/package/post-custom-package',
+    get_custom_package: 'api/v1/package/get-custom-package-By-Agent' 
 }
 
 export default routes;

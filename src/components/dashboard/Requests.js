@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Box, useTheme, Typography } from "@mui/material";
+import { Box, useTheme, Typography, Button, Snackbar } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import Modal from "@mui/material/Modal";
 import Header from "../../components/dashboard/Header";
-import { getPackage } from "../../functions/packages";
+import Modal from "@mui/material/Modal";
+import { getCustomPackage, proceedPackage } from "../../functions/packages";
 
-const Packages = () => {
+const Requests = () => {
   const theme = useTheme();
   const [packages, setPackages] = useState([]);
   const [open, setOpen] = useState(false);
-  const [description, setDescription] = useState('');
+  const [update, setUpdate] = useState(false);
+  const [description, setDescription] = useState("");
+  const [packageId, setPackageId] = useState(null);
+  const [userId, setUserId] = useState(null);
   const colors = tokens(theme.palette.mode);
   const columns = [
     { field: "_id", headerName: "ID", flex: 1 },
@@ -23,14 +26,14 @@ const Packages = () => {
     {
       field: "duration",
       headerName: "Duration(days)",
-      cellClassName: "name-column--cell",
       flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
       field: "tour_fee",
       headerName: "Tour Fee",
-      cellClassName: "name-column--cell",
       flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
       field: "destinations",
@@ -41,10 +44,9 @@ const Packages = () => {
     },
   ];
 
-  const getPackages = async () => {
+  const getCustomPackages = async () => {
     try {
-      const id = localStorage.getItem("user_id");
-      const result = await getPackage(id);
+      const result = await getCustomPackage();
       setPackages(result?.data?.data);
     } catch (error) {
       console.log(error);
@@ -52,12 +54,31 @@ const Packages = () => {
   };
 
   useEffect(() => {
-    getPackages();
+    getCustomPackages();
   }, []);
 
   const handleRowClick = (params) => {
-    setDescription(params.row.description)
+    setDescription(params.row.description);
+    setPackageId(params.id);
+    setUserId(params.row.user_id)
+    console.log(params)
     setOpen(true);
+  };
+
+  const submitPackage = async () => {
+    try {
+      const agent_id = localStorage.getItem("user_id");
+      const result = await proceedPackage(agent_id, packageId, userId);
+      if (result) {
+        setUpdate(true);
+        setTimeout(() => {
+          setUpdate(false);
+          window.location.href = `/Dashboard/Packages`;
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getRowId = (row) => row._id;
@@ -89,9 +110,26 @@ const Packages = () => {
           <Typography id="transition-modal-description" sx={{ mt: 2 }}>
             {description}
           </Typography>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1em",
+            }}
+          >
+            <Button type="button" color="secondary" variant="contained" onClick={submitPackage} >
+              Proceed Request
+            </Button>
+          </div>
         </Box>
       </Modal>
-      <Header title="PACKAGES" subtitle="Packages posted by Agent" />
+      <Snackbar
+        open={update}
+        autoHideDuration={100} // Time in milliseconds for how long the snackbar should be open
+        message="Request successfully accepted"
+      />
+      <Header title="REQUESTS" subtitle="Package Requests by Users" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -132,4 +170,4 @@ const Packages = () => {
   );
 };
 
-export default Packages;
+export default Requests;

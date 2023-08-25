@@ -26,7 +26,7 @@ export default function Recommend() {
   return (
     <Section id="recommend">
       <div className="title">
-        <h2>AGENT PROFILES</h2>
+        <h2 style={{ fontWeight: '900', marginBottom:'1em' }} >AGENT PROFILES</h2>
       </div>
       
       <div className="destinations">

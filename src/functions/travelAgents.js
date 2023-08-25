@@ -36,3 +36,12 @@ export const addAgent = async (data) => {
         console.log(error)
     }
 }
+
+export const addCustomPackage = async (data) => {
+    try {
+        const response = await Post(routes.add_custom_package, data)
+        return response.data?.data;
+    } catch (error) {
+        console.log(error)
+    }
+}
