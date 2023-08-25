@@ -51,8 +51,9 @@ export const Get = async (route, data={}) => {
   }
 };
 
-export const Update = async (route, data) => {
+export const Update = async (route, data, queryObj={}) => {
   const user_data = getUserData();
+
   try {
     let query = ``
     if(user_data.id && user_data.name && user_data.type){
@@ -67,7 +68,8 @@ export const Update = async (route, data) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           ...(user_data.token ? {"Authorization": user_data.token} : {})
-        },    
+        },
+        params:queryObj    
       }
     );
     return response;

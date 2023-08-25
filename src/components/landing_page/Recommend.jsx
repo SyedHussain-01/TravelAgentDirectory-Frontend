@@ -26,14 +26,17 @@ export default function Recommend() {
   return (
     <Section id="recommend">
       <div className="title">
-        <h2>Recommended Destinations</h2>
+        <h2>AGENT PROFILES</h2>
       </div>
-
+      
       <div className="destinations">
         {data?.data &&
           data.data.map((destination) => {
             return (
-              <Link to={`/User/${destination._id}`} style={{ textDecoration:'none', color:'black' }} >
+              <Link
+                to={`/User/${destination._id}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 <div className="destination">
                   <img src={Destination1} alt="" />
                   <h3>{destination.name}</h3>
