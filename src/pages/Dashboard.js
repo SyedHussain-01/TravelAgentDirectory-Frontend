@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import Packages from "../components/dashboard/Packages";
 import Requests from "../components/dashboard/Requests";
 import OngoingPackages from "../components/dashboard/OngoingPackages";
+import { ColorModeContext, useMode } from "../theme";
 
 export const Dashboard = () => {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -40,28 +41,34 @@ export const Dashboard = () => {
     dashboardRouter();
   }, [pathname]);
 
+  const [theme, colorMode] = useMode();
+
   return (
     <>
-      <CssBaseline />
-      <div className="app">
-        <Sidebar isSidebar={isSidebar} />
-        <main className="content">
-          <Topbar setIsSidebar={setIsSidebar} />
-          {tab == 1 ? (
-            <AddPackage />
-          ) : tab == 2 ? (
-            <Profile />
-          ) : tab == 3 ? (
-            <Packages />
-          ) : tab == 4 ? (
-            <Requests />
-          ) : tab == 5 ? (
-            <OngoingPackages/>
-          ) : (
-            <Packages />
-          )}
-        </main>
-      </div>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="app">
+            <Sidebar isSidebar={isSidebar} />
+            <main className="content">
+              <Topbar setIsSidebar={setIsSidebar} />
+              {tab == 1 ? (
+                <AddPackage />
+              ) : tab == 2 ? (
+                <Profile />
+              ) : tab == 3 ? (
+                <Packages />
+              ) : tab == 4 ? (
+                <Requests />
+              ) : tab == 5 ? (
+                <OngoingPackages />
+              ) : (
+                <Packages />
+              )}
+            </main>
+          </div>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </>
   );
 };
