@@ -76,7 +76,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h6" color={colors.grey[100]}>
-                  TAKEOFF
+                  TRIP TALKS
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />

@@ -4,10 +4,10 @@ import {
   Footer,
   Hero,
   Navbar,
-  Recomend,
   Services,
   Testimonials,
 } from "../components/landing_page";
+import Recommend from "../components/assets/Recommend"
 import ScrollReveal from "scrollreveal";
 
 const Home = () => {
@@ -39,6 +39,7 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Services />
+      <Recommend/ >
       <Testimonials />
       <Footer />
     </div>
